@@ -7,7 +7,7 @@ var colors = [0, 0, 0];
 
 app.get('/getcolor', function (request, response) {
     if (req.body.id) {
-        response.send(JSON.stringify(colors[req.body.id]));
+        response.send(colors[req.body.id] + "");
     } else {
         response.send("0");
     }
