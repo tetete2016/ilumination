@@ -6,15 +6,15 @@ app.use(express.static('public'));
 var colors = [0, 0, 0];
 
 app.get('/getcolor', function (request, response) {
-    if (req.body.id) {
-        response.send(colors[req.body.id] + "");
+    if (req.param('id')) {
+        response.send(colors[req.param('id')] + "");
     } else {
         response.send("0");
     }
 });
 app.get('/setcolor', function (request, response) {
-    if (req.body.id && req.body.color) {
-        colors[req.body.id] = req.body.color;
+    if (req.param('id') && req.param('color')) {
+        colors[req.param('id')] = req.param('color');
     }
     response.send("sent!!");
 });
