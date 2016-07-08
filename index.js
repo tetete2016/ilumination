@@ -6,11 +6,14 @@ app.use(express.static('public'));
 var colors = [0, 0, 0];
 
 app.get('/getcolor', function (request, response) {
+    response.send(colors[0] + "");
+    /*
     if (req.param('id')) {
         response.send(colors[req.param('id')] + "");
     } else {
         response.send("0");
     }
+    */
 });
 app.get('/setcolor', function (request, response) {
     if (req.param('id') && req.param('color')) {
