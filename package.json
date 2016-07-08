@@ -1,0 +1,26 @@
+{
+  "name": "ilumination",
+  "version": "0.0.1",
+  "description": "This is ilumination",
+  "engines": {
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": ">4.0.0",
+    "body-parser": ">0.0.0",
+    "pg": "4.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tetete2016/ilumination.git"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT"
+}

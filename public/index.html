@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>cube hockey</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        (function () {
+            var canvas = document.getElementById('canvas'),
+                    ctx = canvas.getContext('2d');
+            var size = 0;
+            var x = 9, y = 40, z = 20;
+            var vx = 0, vy = 0, vz = 1;
+            var cx = 0, cy = 0;
+            var score = 0;
+            var start = false;
+            // resize the canvas to fill browser window dynamically
+            window.addEventListener('resize', resizeCanvas, false);
+
+            function resizeCanvas() {
+                if (window.innerHeight > window.innerWidth) {
+                    size = window.innerWidth / 100;
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerWidth;
+                } else {
+                    size = window.innerHeight / 100;
+                    canvas.width = window.innerHeight;
+                    canvas.height = window.innerHeight;
+                }
+                document.body.style.margin = "0px";
+            }
+            function timer() {
+                if (start) {
+                    var x1 = x, y1 = y, z1 = z;
+                    x1 += vx;
+                    y1 += vy;
+                    z1 += vz;
+                    if (x1 < 0 || x1 > 100) {
+                        vx *= -1;
+                    } else {
+                        x = x1;
+                    }
+                    if (y1 < 0 || y1 > 100) {
+                        vy *= -1;
+                    } else {
+                        y = y1;
+                    }
+                    if (z1 < 0 || z1 > 100) {
+                        vz *= -1;
+                        console.log((cx - x1) + "," + (cy - y1));
+                        if (cx - 20 < x1 && x1 < cx + 20 && cy < y1 && y1 < cy + 27) {
+                            vx = (x1 - cx) * 0.1;
+                            vy = (y1 - cy) * 0.1;
+                            score++;
+                        } else {
+                            alert("game over");
+                            start = false;
+                            reset();
+                        }
+                    } else {
+                        z = z1;
+                    }
+                }
+                drawbg();
+                drawcursorbehind();
+                drawball();
+                drawcursor();
+                drawtext();
+            }
+            function drawbg() {
+                ctx.fillStyle = "rgb(255,255,255)";
+                ctx.fillRect(0, 0, size * 100, size * 100);
+                ctx.strokeStyle = "rgb(0,0,0)";
+                //front
+                ctx.strokeRect(0, size * 20, size * 60, size * 60);
+
+                ctx.beginPath();
+                //upper left
+                ctx.moveTo(0, size * 20);
+                ctx.lineTo(size * 20, 0);
+                //upper right
+                ctx.moveTo(size * 60, size * 20);
+                ctx.lineTo(size * 80, 0);
+                ctx.stroke();
+                //bottom left
+                ctx.moveTo(size * 60, size * 80);
+                ctx.lineTo(size * 80, size * 60);
+                ctx.stroke();
+
+                //back
+                ctx.strokeStyle = "rgb(127,127,127)";
+                ctx.strokeRect(size * 20, 0, size * 60, size * 60);
+
+                ctx.beginPath();
+                //bottom left
+                ctx.moveTo(0, size * 80);
+                ctx.lineTo(size * 20, size * 60);
+                ctx.stroke();
+            }
+            function drawball() {
+                ctx.fillStyle = "rgb(0,0,0)";
+                ctx.beginPath();
+                ctx.arc(x * size * 0.6 + z * size * 0.2, size * 80 - y * size * 0.6 - z * size * 0.2, size, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = "rgba(0,0,0,0.5)";
+                ctx.beginPath();
+                //ctx.arc(x * size * 0.6, size * 80 - y * size * 0.6, size, 0, Math.PI * 2);
+                //ctx.arc(x * size * 0.6 + size * 20, size * 60 - y * size * 0.6, size, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = "rgb(128,128,128)";
+                ctx.save();
+                ctx.translate(x * size * 0.6 + z * size * 0.2, size * 80 - z * size * 0.2);
+                ctx.scale(1, 0.5);
+                ctx.beginPath();
+                ctx.arc(0, 0, size, 0, Math.PI * 2);
+                ctx.restore();
+                ctx.fill();
+            }
+            function drawcursor() {
+                ctx.fillStyle = "rgba(0,0,255,0.5)";
+                ctx.fillRect(cx * size * 0.6, size * 64 - cy * size * 0.6, size * 15, size * 15);
+            }
+            function drawcursorbehind() {
+                ctx.fillStyle = "rgb(0,0,255)";
+                ctx.fillRect(cx * size * 0.6 + size * 20, size * 44 - cy * size * 0.6, size * 15, size * 15);
+            }
+            function drawtext() {
+                if (start) {
+                    ctx.fillStyle = "rgb(0,0,0)";
+                    ctx.textAlign = "left";
+                    ctx.font = size * 3 + "px italic";
+                    ctx.fillText(score + "point", 0, size * 4);
+                } else {
+                    ctx.fillStyle = "rgb(0,0,0)";
+                    ctx.textAlign = "center";
+                    ctx.font = size * 3 + "px italic";
+                    ctx.fillText("Tap to start", size * 50, size * 4);
+                }
+            }
+            function reset() {
+                x = 9;
+                y = 40;
+                z = 20;
+                vx = 0;
+                vy = 0;
+                vz = 1;
+                score = 0;
+            }
+            window.onmousemove = function (e) {
+                cx = e.clientX / size / 0.6 - 10;
+                cy = (size * 65 - e.clientY) / size / 0.6;
+                if (cx < 0) cx = 0;
+                if (cx > 73) cx = 73;
+                if (cy < 0) cy = 0;
+                if (cy > 73) cy = 73;
+            }
+            window.onmousedown = function () {
+                start = true;
+            }
+            canvas.ontouchstart = ontouch;
+            canvas.ontouchmove = ontouch;
+            document.addEventListener("touchstart", touchHandler, false);
+            document.addEventListener("touchmove", touchHandler, false);
+            document.addEventListener("touchend", touchHandler, false);
+            document.addEventListener("touchcancel", touchHandler, false);
+            function touchHandler(event) {
+                event.preventDefault();
+            }
+            function ontouch() {
+                e = event.touches[0];
+                cx = e.clientX / size / 0.6 - 10;
+                cy = (size * 65 - e.clientY) / size / 0.6;
+                if (cx < 0) cx = 0;
+                if (cx > 73) cx = 73;
+                if (cy < 0) cy = 0;
+                if (cy > 73) cy = 73;
+            }
+            reset();
+            resizeCanvas();
+            setInterval(timer, 30);
+        })();
+    </script>
+</body>
+</html>
