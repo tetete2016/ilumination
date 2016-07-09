@@ -1,24 +1,23 @@
 var express = require('express');
 var app = express();
-var bodyParser = require('body-parser');
 
 app.set('port', (process.env.PORT || 5000));
 
-app.use(bodyParser.json());
+app.use(express.bodyDecoder());
 app.use(express.static('public'));
 
 var colors = [0, 0, 0];
 
 app.get('/getcolor', function (request, response) {
-    if (req.params.id) {
-        response.send(colors[req.params.id] + "");
+    if (req.body.id) {
+        response.send(colors[req.body.id] + "");
     } else {
         response.send("0");
     }
 });
 app.get('/setcolor', function (request, response) {
-    if (req.params.id && req.params.color) {
-        colors[req.params.id] = req.params.color;
+    if (req.body.id && req.body.color) {
+        colors[req.body.id] = req.body.color;
     }
     response.send("sent!!");
 });
