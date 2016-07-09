@@ -10,6 +10,7 @@ var colors = [0, 0, 0];
 app.get('/getcolor', function (request, response) {
     console.log(request.body);
     console.log(request.params);
+    console.log(request.query);
     response.send("0");
     /*
     if (req.body.id) {
