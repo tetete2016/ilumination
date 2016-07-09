@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static('public'));
+app.use(express.bodyParser());
 
 var colors = [0, 0, 0];
 
