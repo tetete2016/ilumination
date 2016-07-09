@@ -11,7 +11,6 @@ app.get('/getcolor', function (request, response) {
     } else {
         response.send("0");
     }
-    */
 });
 app.get('/setcolor', function (request, response) {
     if (req.params.id && req.params.color) {
