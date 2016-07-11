@@ -8,13 +8,14 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var colors = [0, 0, 0];
+var colors = new Array(10);
 
 app.get('/getcolor', function (request, response) {
     console.log(request.query);
     if (request.query.id != null) {
         var index = Number.parseInt(request.query.id, 10);
         console.log(index);
+        console.log(colors);
         if (0 <= index && index < colors.length) {
             response.send(colors[index]);
         }
@@ -31,4 +32,7 @@ app.get('/setcolor', function (request, response) {
 });
 app.listen(app.get('port'), function () {
     console.log('Node app is running on port', app.get('port'));
+    for (var i = 0; i < colors.length; i++) {
+        colors[i] = 0;
+    }
 });
