@@ -8,25 +8,27 @@ app.use(express.static('public'));
 var colors = [0, 0, 0];
 
 app.get('/getcolor', function (request, response) {
-    console.log(request.body);
-    console.log(request.params);
     console.log(request.query);
-    response.send("0");
-    /*
-    if (req.body.id) {
-        response.send(colors[req.body.id] + "");
-    } else {
-        response.send("0");
+    var q = JSON.parse(request.query);
+    console.log(q);
+    if (q.id != null) {
+        var index = Number.parseInt(q.id, 10);
+        if (0 <= index && index < colors.length) {
+            response.send(colors[index]);
+        }
     }
-    */
+    response.send("0");
 });
 app.get('/setcolor', function (request, response) {
-    /*
-    if (req.body.id && req.body.color) {
-        colors[req.body.id] = req.body.color;
+    console.log(request.query);
+    var q = JSON.parse(request.query);
+    console.log(q);
+    if (q.id != null && q.color != 0) {
+        var index = Number.parseInt(q.id, 10);
+        if (index) {
+            colors[index] = q.color;
+        }
     }
-    */
-    response.send("sent!!");
 });
 app.listen(app.get('port'), function () {
     console.log('Node app is running on port', app.get('port'));
