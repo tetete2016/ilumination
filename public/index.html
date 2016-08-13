@@ -14,8 +14,17 @@
             doget("", "/getcolor", function (res) {
                 console.log(res);
                 color = JSON.parse(res)[document.getElementById("deviceId").value];
+                document.body.background = toColor(color);
             });
         }, 500);
+        function toColor(num) {
+            num >>>= 0;
+            var b = num & 0xFF,
+                g = (num & 0xFF00) >>> 8,
+                r = (num & 0xFF0000) >>> 16,
+                a = ((num & 0xFF000000) >>> 24) / 255;
+            return "rgba(" + [r, g, b, a].join(",") + ")";
+        }
     </script>
 </body>
 </html>
