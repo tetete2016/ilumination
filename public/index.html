@@ -12,9 +12,9 @@
         var c = 0;
         setInterval(function () {
             doget("", "/getcolor", function (res) {
-                console.log(res);
                 c = JSON.parse(res)[document.getElementById("deviceId").value];
             });
+            console.log(c);
         }, 500);
     </script>
 </body>
