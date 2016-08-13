@@ -18,6 +18,8 @@ app.get('/getcolor', function (request, response) {
         console.log(colors);
         if (0 <= index && index < colors.length) {
             response.send(colors[0]);
+        } else {
+            response.send("0");
         }
     } else {
         response.send("0");
