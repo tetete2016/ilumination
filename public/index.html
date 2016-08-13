@@ -14,8 +14,8 @@
             doget("", "/getcolor", function (res) {
                 console.log(res);
                 color = JSON.parse(res)[document.getElementById("deviceId").value];
-                document.body.background = color.toString();
             });
+            document.body.background = color.toString();
         }, 500);
     </script>
 </body>
