@@ -15,6 +15,7 @@ app.get('/getcolor', function (request, response) {
     if (request.query.id != null) {
         var index = Number.parseInt(request.query.id, 10);
         console.log(index);
+        console.log("1");
         console.log(colors);
         if (0 <= index && index < colors.length) {
             response.send("a");
