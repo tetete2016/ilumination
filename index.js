@@ -17,7 +17,7 @@ app.get('/getcolor', function (request, response) {
         console.log(index);
         console.log(colors);
         if (0 <= index && index < colors.length) {
-            response.send(colors[index]);
+            response.send(index);
         }
     }
     response.send("0");
