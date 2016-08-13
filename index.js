@@ -12,18 +12,7 @@ var colors = [0, 0, 0, 0];
 
 app.get('/getcolor', function (request, response) {
     console.log(request.query);
-    if (request.query.id != null) {
-        var index = Number.parseInt(request.query.id, 10);
-        console.log(index);
-        console.log(colors);
-        if (0 <= index && index < colors.length) {
-            response.send(colors + "");
-        } else {
-            response.send("0");
-        }
-    } else {
-        response.send("0");
-    }
+    response.send("[" + colors + "]");
 });
 app.get('/setcolor', function (request, response) {
     console.log(request.query);
