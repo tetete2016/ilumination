@@ -15,7 +15,15 @@
                 c = JSON.parse(res)[document.getElementById("deviceId").value];
             });
             console.log(c);
-            document.body.style.backgroundColor = "#" + c.toString(16);
+            var str = c.toString(16);
+            for (; ;) {
+                if (str.length < 6) {
+                    str += "0";
+                } else {
+                    break;
+                }
+            }
+            document.body.style.backgroundColor = "#" + str;
         }, 500);
     </script>
 </body>
