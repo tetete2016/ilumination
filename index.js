@@ -8,7 +8,7 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var colors = [0, 0, 0, 0];
+var colors = [0, 0, 0, 0, 0, 0];
 
 app.get('/getcolor', function (request, response) {
     console.log(request.query);
