@@ -14,10 +14,10 @@ app.get('/getcolor', function (request, response) {
     console.log(request.query);
     if (request.query.id != null) {
         var index = Number.parseInt(request.query.id, 10);
-        console.log({ x: index });
+        console.log(index);
         console.log(colors);
         if (0 <= index && index < colors.length) {
-            response.send("a");
+            response.send(colors[index]);
         }
     } else {
         response.send("0");
