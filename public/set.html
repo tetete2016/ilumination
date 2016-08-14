@@ -14,11 +14,7 @@
     <script src="TeteteAjax.js"></script>
     <script>
         var colorViews = [];
-        var redbox = [];
-        var bluebox = [];
-        var greenbox = [];
-
-        var colors = [];
+        var colors = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         doget("", "/getcolor", function (res) {
             colors = JSON.parse(res);
             start();
@@ -27,12 +23,24 @@
             for (var i = 0; i < 10; i++) {
                 colorViews[i] = document.createElement("div");
                 colorViews[i].className = "color";
-                colorViews[i].style.width = "30px";
-                colorViews[i].style.height = "30px";
+                colorViews[i].style.width = "50px";
                 colorViews[i].style.backgroundColor = getcolor(colors[i]);
-                redbox[i] = document.createElement("input");
                 document.body.appendChild(colorViews[i]);
+                createButton(i, 0xff0101, "赤");
+                createButton(i, 0x01ff01, "緑");
+                createButton(i, 0x0101ff, "青");
             }
+        }
+        function createButton(id, color, txt) {
+            var str = "<button ";
+            str += 'onclick="setcolor(' + id + ',' + color + ')"' + '>';
+            str += txt + "</button>";
+            colorViews[id].innerHTML += str;
+        }
+        function setcolor(id, c) {
+            colors[id] = c;
+            colorViews[id].style.backgroundColor = getcolor(colors[id]);
+            console.log("a");
         }
         function getcolor(c) {
             var str = c.toString(16);
@@ -45,14 +53,12 @@
             }
             return "#" + str;
         }
-        function createBox() {
-            var box = document.createElement("input");
-            box.type = "number";
-            box.value = 0;
+        function addRGB(r, g, b) {
+            return r + g * 256 + b * 256 * 256;
         }
         function send() {
             for (var i = 0; i < 10; i++) {
-                doget("", "/setcolor?id=" + i + "&color=", function (res) {
+                doget("", "/setcolor?id=" + i + "&color=" + colors[i], function (res) {
 
                 });
             }
