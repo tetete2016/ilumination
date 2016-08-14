@@ -52,7 +52,7 @@ function timer() {
     responseArr = [];
     if (animate) {
         count++;
-        switch (count % 3 == 0) {
+        switch (count % 3) {
             case 0:
                 colors = [0xff88ff, 0x88ffff, 0x8888ff, 0xff88ff, 0x88ffff, 0x8888ff, 0xff88ff, 0x88ffff, 0x8888ff, 0xff88ff]
                 break;
