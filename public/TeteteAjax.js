@@ -27,6 +27,9 @@ function doget(data, url, callback) {
             callback(xhr.responseText);
         }
     }
+    xhr.onerror = function () {
+        console.log("onerror");
+    }
     xhr.send(data);
     console.log("called doget exit");
 }
