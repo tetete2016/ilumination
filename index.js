@@ -12,6 +12,11 @@ var colors = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 var responseArr = [];
 
+var id = 0;
+
+var count = 0;
+var animate = false;
+
 app.get('/getcolor', function (request, response) {
     console.log(request.query);
     responseArr.push(response);
@@ -25,6 +30,14 @@ app.get('/setcolor', function (request, response) {
     }
     response.send("sent");
 });
+app.get('/animate', function (request, response) {
+    animate = true;
+    response.send("animation started!!");
+});
+app.get('/stopanimation', function (request, response) {
+    animate = false;
+    response.send("animation stopped!!");
+});
 app.listen(app.get('port'), function () {
     console.log('Node app is running on port', app.get('port'));
     for (var i = 0; i < colors.length; i++) {
@@ -32,9 +45,23 @@ app.listen(app.get('port'), function () {
     }
     setInterval(timer, 1000);
 });
-function timer(){
+function timer() {
     for (var i = 0; i < responseArr.length; i++) {
         responseArr[i].send("[" + colors + "]");
     }
     responseArr = [];
+    if (animate) {
+        count++;
+        switch (count % 3 == 0) {
+            case 0:
+                colors = [0xff88ff, 0x88ffff, 0x8888ff, 0xff88ff, 0x88ffff, 0x8888ff, 0xff88ff, 0x88ffff, 0x8888ff, 0xff88ff]
+                break;
+            case 1:
+                colors = [0x88ffff, 0x8888ff, 0xff88ff, 0x88ffff, 0x8888ff, 0xff88ff, 0x88ffff, 0x8888ff, 0xff88ff, 0xff88ff]
+                break;
+            case 2:
+                colors = [0x8888ff, 0xff88ff, 0x88ffff, 0x8888ff, 0xff88ff, 0x88ffff, 0x8888ff, 0xff88ff, 0xff88ff, 0x88ffff]
+                break;
+        }
+    }
 }
