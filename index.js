@@ -10,9 +10,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 var colors = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
+var responseArr = [];
+
 app.get('/getcolor', function (request, response) {
     console.log(request.query);
-    response.send("[" + colors + "]");
+    responseArr.push(response);
+    //response.send("[" + colors + "]");
 });
 app.get('/setcolor', function (request, response) {
     console.log(request.query);
@@ -27,4 +30,11 @@ app.listen(app.get('port'), function () {
     for (var i = 0; i < colors.length; i++) {
         colors[i] = 0;
     }
+    setInterval(timer, 1000);
 });
+function timer(){
+    for (var i = 0; i < responseArr.length; i++) {
+        responseArr[i].send("[" + colors + "]");
+    }
+    responseArr = [];
+}
