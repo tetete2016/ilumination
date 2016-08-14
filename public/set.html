@@ -33,7 +33,7 @@
         }
         function createButton(id, color, txt) {
             var str = "<button ";
-            str += 'onclick="setcolor(' + id + ',' + color + ')"' + '>';
+            str += 'onclick="setcolor(' + id + ',' + color + ');send()"' + '>';
             str += txt + "</button>";
             colorViews[id].innerHTML += str;
         }
