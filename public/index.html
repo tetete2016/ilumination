@@ -11,10 +11,13 @@
     <script>
         var c = 0;
         loop();
+        var timer = setTimeout(loop, 6000);
         function loop() {
             doget("", "/getcolor", function (res) {
+                clearTimeout(timer);
                 c = JSON.parse(res)[document.getElementById("deviceId").value];
                 loop();
+                setTimeout(loop, 600);
             });
             console.log(c);
             var str = c.toString(16);
