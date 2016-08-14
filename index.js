@@ -43,7 +43,7 @@ app.listen(app.get('port'), function () {
     for (var i = 0; i < colors.length; i++) {
         colors[i] = 0;
     }
-    setInterval(timer, 300);
+    timer();
 });
 function timer() {
     for (var i = 0; i < responseArr.length; i++) {
@@ -69,5 +69,8 @@ function timer() {
                 break;
         }
         */
+        setTimeout(timer, 200);
+    } else {
+        setTimeout(timer, 800);
     }
 }
