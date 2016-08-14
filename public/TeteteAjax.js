@@ -25,7 +25,7 @@ function doget(data, url, callback) {
             console.log("callback doget-1");
             callback(xhr.responseText);
         }
-        console.log("callback doget-2");
+        console.log("callback doget-2" + "state" + xhr.readyState + "status" + xhr.status);
     }
     xhr.send(data);
 }
