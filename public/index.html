@@ -10,9 +10,10 @@
     <script src="TeteteAjax.js"></script>
     <script>
         var c = 0;
-        setInterval(function () {
+        function loop() {
             doget("", "/getcolor", function (res) {
                 c = JSON.parse(res)[document.getElementById("deviceId").value];
+                loop();
             });
             console.log(c);
             var str = c.toString(16);
@@ -24,7 +25,7 @@
                 }
             }
             document.body.style.backgroundColor = "#" + str;
-        }, 1);
+        }
     </script>
 </body>
 </html>
