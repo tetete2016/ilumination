@@ -34,7 +34,7 @@ app.listen(app.get('port'), function () {
 });
 function timer(){
     for (var i = 0; i < responseArr.length; i++) {
-        responseArr[i].send("[" + colors + "]");
+        responseArr[i].send(JSON.stringify(colors));
     }
     responseArr = [];
 }

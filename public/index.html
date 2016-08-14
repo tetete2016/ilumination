@@ -10,6 +10,7 @@
     <script src="TeteteAjax.js"></script>
     <script>
         var c = 0;
+        loop();
         function loop() {
             doget("", "/getcolor", function (res) {
                 c = JSON.parse(res)[document.getElementById("deviceId").value];
