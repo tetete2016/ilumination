@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>イルミネーション色変更</title>
+</head>
+<body>
+    <style>
+        .color {
+            float: left;
+        }
+    </style>
+    <script src="TeteteAjax.js"></script>
+    <script>
+        var colorViews = [];
+        var redbox = [];
+        var bluebox = [];
+        var greenbox = [];
+
+        var colors = [];
+        doget("", "/getcolor", function (res) {
+            colors = JSON.parse(res);
+            start();
+        });
+        function start() {
+            for (var i = 0; i < 10; i++) {
+                colorViews[i] = document.createElement("div");
+                colorViews[i].className = "color";
+                colorViews[i].style.width = "30px";
+                colorViews[i].style.height = "30px";
+                colorViews[i].style.backgroundColor = getcolor(colors[i]);
+                redbox[i] = document.createElement("input");
+                document.body.appendChild(colorViews[i]);
+            }
+        }
+        function getcolor(c) {
+            var str = c.toString(16);
+            for (; ;) {
+                if (str.length < 6) {
+                    str += "0";
+                } else {
+                    break;
+                }
+            }
+            return "#" + str;
+        }
+        function createBox() {
+            var box = document.createElement("input");
+            box.type = "number";
+            box.value = 0;
+        }
+        function send() {
+            for (var i = 0; i < 10; i++) {
+                doget("", "/setcolor?id=" + i + "&color=", function (res) {
+
+                });
+            }
+        }
+    </script>
+</body>
+</html>
