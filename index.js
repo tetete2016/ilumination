@@ -51,11 +51,11 @@ function timer() {
     }
     responseArr = [];
     if (animate) {
-        count++;
         for (var i = 0; i < colors.length; i++) {
             colors[i] = 0;
         }
         colors[count % 10] = 0xffffff;
+        count++;
         /*
         switch (count % 3) {
             case 0:
