@@ -21,13 +21,14 @@ function doget(data, url, callback) {
     xhr.open("GET", url, true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.onreadystatechange = function () {
+        console.log("callback doget-2" + "state" + xhr.readyState + "status" + xhr.status);
         if ((xhr.readyState === 4 && xhr.status === 0) || (xhr.readyState === 4 && xhr.status === 200)) {
             console.log("callback doget-1");
             callback(xhr.responseText);
         }
-        console.log("callback doget-2" + "state" + xhr.readyState + "status" + xhr.status);
     }
     xhr.send(data);
+    console.log("called doget exit");
 }
 function dopost(data, url, callback) {
     if (!url) return;
