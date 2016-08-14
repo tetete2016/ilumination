@@ -22,10 +22,10 @@ function doget(data, url, callback) {
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.onreadystatechange = function () {
         if ((xhr.readyState === 4 && xhr.status === 0) || (xhr.readyState === 4 && xhr.status === 200)) {
-			console.log("callback doget-1");
+            console.log("callback doget-1");
             callback(xhr.responseText);
         }
-		console.log("callback doget-2");
+        console.log("callback doget-2");
     }
     xhr.send(data);
 }
