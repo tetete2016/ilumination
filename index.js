@@ -55,6 +55,9 @@ function timer() {
             colors[i] = 0;
         }
         colors[count % 10] = 0xffffff;
+        if (count > 0) {
+            colors[(count - 1) % 10] = 0x888888;
+        }
         count++;
         /*
         switch (count % 3) {
